@@ -4,6 +4,7 @@ const AppError = require("../util/AppError");
 const passport = require("passport");
 async function register(req, res) {
   const body = req.body;
+  console.log(body);
   const db = new Database();
   await db.open();
   const newUser = new User(body);

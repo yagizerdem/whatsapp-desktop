@@ -1,13 +1,13 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.connect(process.env.CONNECTIONSTRING);
-
-const app = require("./app");
+const passport = require("passport");
+const { app } = require("./app");
 
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const sessionMiddleware = require("./sessionmiddleware");
-const passport = require("passport");
+// const sharedSession = require('express-socket.io-session'); // sync
 
 const PORT = process.env.PORT || 8000;
 
@@ -37,6 +37,12 @@ io.engine.use(
     }
   })
 );
+
+io.on("connection", (socket) => {
+  const session = socket.request.user;
+  console.log(session);
+  console.log("girdi");
+});
 
 httpServer.listen(PORT, () => {
   console.log(`application is running at: http://localhost:${PORT}`);

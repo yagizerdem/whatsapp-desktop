@@ -1,0 +1,65 @@
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.card {
+  width: 300px;
+  height: 400px;
+  background-color: transparent;
+  border-radius: 5px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+.front,
+.back {
+  transition: all 0.3s linear;
+  background-color: #455d7a;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.card ~ button {
+  padding: 8px 5px;
+  border: none;
+  outline: none;
+  margin: 20px;
+  cursor: pointer;
+  width: 200px;
+  background-color: #233142;
+  color: white;
+  font-weight: bolder;
+  border-radius: 3px;
+}
+.card h2 {
+  font-weight: bolder;
+  color: white;
+  font-size: 28px;
+  margin: 10px 0;
+}
+.card h2 ~ hr {
+  width: 80%;
+  margin: auto;
+}
+.card form > input {
+  border: none;
+  outline: none;
+  margin: 10px auto;
+  display: block;
+  padding: 10px 5px;
+  color: #233142;
+}
+.card form > button {
+  border: none;
+  outline: none;
+  padding: 8px 25px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bolder;
+}

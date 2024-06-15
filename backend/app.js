@@ -1,17 +1,25 @@
 const express = require("express");
 const app = express();
 const sessionMiddleware = require("./sessionmiddleware");
-const session = require("express-session");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const { join } = require("node:path");
 const errorHandler = require("./controllers/ErrorHandler");
 const AppError = require("./util/AppError");
 const Database = require("./lib/Database");
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
+const corsOptions = {
+  // Allow only requests from this domain
+  origin: "http://localhost:5173",
+  credentials: true, // Allow credentials
+};
 
+app.use(cors(corsOptions));
+app.use(express.json());
+
+app.use(passport.initialize());
 app.use(sessionMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.session());
@@ -71,4 +79,4 @@ app.use("*", (req, res, next) => {
 // handling errors
 app.use(errorHandler);
 
-module.exports = app;
+module.exports = { app };
