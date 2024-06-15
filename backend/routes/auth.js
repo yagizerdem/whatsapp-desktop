@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const catchError = require("../util/catchError"); // wrapper
-const UserController = require("../controllers/UserController");
+const UserController = require("../controllers/AuthController");
 
 router.post("/register", catchError(UserController.register));
 router.post("/login", catchError(UserController.login));

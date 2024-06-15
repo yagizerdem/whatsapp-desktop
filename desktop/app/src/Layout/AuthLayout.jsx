@@ -1,3 +1,4 @@
+import { redirect } from "react-router";
 import { Fragment, useRef, useState } from "react";
 import styles from "../styles/Auth.module.css";
 import axios from "axios";
@@ -122,4 +123,15 @@ export default function AuthLayout() {
       </div>
     </Fragment>
   );
+}
+export async function loader() {
+  const { data } = await axios.get("http://localhost:8000/auth/isLoggedIn", {
+    withCredentials: true,
+  });
+  console.log("loader data", data);
+  if (data.ok) {
+    return redirect("/");
+  }
+
+  return null;
 }

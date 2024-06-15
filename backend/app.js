@@ -70,6 +70,7 @@ passport.deserializeUser((user, cb) => {
 
 // routes
 app.use("/auth", require("./routes/auth"));
+app.use("/user", require("./routes/user"));
 
 // handleing unhandled routes
 app.use("*", (req, res, next) => {

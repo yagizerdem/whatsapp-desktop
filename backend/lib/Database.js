@@ -8,8 +8,11 @@ class Database {
   close = async () => {
     await mongoose.disconnect();
   };
-  findOne = async (model, query = {}) => {
+  findOne = (model, query = {}) => {
     return model.findOne(query);
+  };
+  find = (model, query = {}) => {
+    return model.find(query);
   };
 }
 module.exports = Database;

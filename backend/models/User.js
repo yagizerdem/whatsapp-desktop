@@ -46,12 +46,18 @@ const Schema = new mongoose.Schema({
     },
     required: [true, "Password is required"],
   },
+  username: {
+    type: String,
+  },
 });
 
 Schema.pre("save", async function () {
   const password = this.password;
   const hash = await bcrypt.hash(password, 10);
   this.password = hash;
+});
+Schema.pre("save", async function () {
+  this.username = `${this.firstName} ${this.lastName}`;
 });
 
 const User = mongoose.model("User", Schema);
