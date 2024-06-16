@@ -7,6 +7,7 @@ const { app } = require("./app");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const sessionMiddleware = require("./sessionmiddleware");
+const { UserData, userStore } = require("./DynamicUserStore");
 // const sharedSession = require('express-socket.io-session'); // sync
 
 const PORT = process.env.PORT || 8000;
@@ -45,9 +46,19 @@ io.engine.use(
 );
 
 io.on("connection", (socket) => {
+  console.log("socket connected");
   const session = socket.request.user;
-  console.log(session);
-  console.log("girdi");
+  const id = session._id;
+  const userData = new UserData();
+  userData.id = id;
+  userData.socketid = socket.id;
+  userStore[userData.id] = userData;
+  // console.log(userStore);
+  socket.on("disconnect", (reason) => {
+    delete userStore[userData.id];
+    console.log(`${socket.id} disconnected reason -> ${reason} `);
+    // console.log(userStore);
+  });
 });
 
 httpServer.listen(PORT, () => {

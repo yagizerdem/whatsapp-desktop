@@ -9,6 +9,7 @@ import { loader as appLayoutLoader } from "./Layout/AppLayout.jsx";
 import { loader as authLoader } from "./Layout/AuthLayout.jsx";
 import { loader as profileLoader } from "./Profile.jsx";
 import { loader as invitationLoader } from "./Invitation.jsx";
+import { loader as appLoader } from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchUser from "./SearchUser.jsx";
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+        loader: appLoader,
       },
       {
         path: "/SearchUser",

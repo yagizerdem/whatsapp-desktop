@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLoaderData, useNavigate, redirect } from "react-router";
 import notify from "./util/notify";
 import styles from "./styles/Profile.module.css";
+import { socket } from "./socket";
 function determineProfileImage(userData) {
   if (!userData.profileImage) return "./emptyprofile.jpg";
   return `http://localhost:8000/public/uploads/${userData.profileImage}`;
@@ -28,6 +29,7 @@ export default function Profile() {
       document.cookie =
         "connect.sid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       notify(data.message);
+      socket.disconnect();
       navigate("/Auth");
     } catch (err) {
       notify("error occured while log  out");
