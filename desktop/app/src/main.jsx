@@ -8,10 +8,12 @@ import App from "./App.jsx";
 import { loader as appLayoutLoader } from "./Layout/AppLayout.jsx";
 import { loader as authLoader } from "./Layout/AuthLayout.jsx";
 import { loader as profileLoader } from "./Profile.jsx";
+import { loader as invitationLoader } from "./Invitation.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchUser from "./SearchUser.jsx";
 import Profile from "./Profile.jsx";
+import Invitation from "./Invitation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
         path: "/Profile",
         element: <Profile />,
         loader: profileLoader,
+      },
+      {
+        path: "/Invitation",
+        element: <Invitation />,
+        loader: invitationLoader,
       },
     ],
   },

@@ -11,4 +11,5 @@ router.post(
   upload.single("file"),
   catchError(UserController.uploadProfileImage)
 );
+router.post("/invite", catchError(UserController.invite));
 module.exports = router;

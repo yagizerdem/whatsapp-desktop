@@ -1,4 +1,5 @@
 const Database = require("../lib/Database");
+const Invitation = require("../models/Invitation");
 const User = require("../models/User");
 const APIfeatures = require("../util/APIfeatures");
 const AppError = require("../util/AppError");
@@ -52,4 +53,34 @@ async function uploadProfileImage(req, res) {
   console.log("req body file name", req.body.filename);
   return res.status(200).json({ ok: true, data: newDocument });
 }
-module.exports = { find, getCurrentUser, uploadProfileImage };
+
+async function invite(req, res, next) {
+  const user = req.user;
+  const userid = req.body.userid;
+  if (user._id == userid) {
+    const appError = new AppError("same user cant send invite ...", 400);
+    return next(appError);
+  }
+  const db = new Database();
+  await db.open();
+
+  const invitationFromDb = await db.findOne(Invitation, {
+    from: user._id,
+    to: userid,
+    status: "pending",
+  });
+  if (invitationFromDb) {
+    return next(new AppError("already send invitation ... ", 400));
+  }
+
+  const invitation = new Invitation({
+    from: user._id,
+    to: userid,
+    time: new Date().toDateString(),
+  });
+  await invitation.save();
+
+  await db.close();
+  res.status(200).json({ ok: true, message: "invitation send" });
+}
+module.exports = { find, getCurrentUser, uploadProfileImage, invite };
