@@ -11,6 +11,7 @@ const User = require("./models/User");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const corsOptions = {
   // Allow only requests from this domain
   origin: "http://localhost:5173",
@@ -21,6 +22,7 @@ app.use("/public", express.static(path.join(__dirname, "public"))); // server st
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(sessionMiddleware);

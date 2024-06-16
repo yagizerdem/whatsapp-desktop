@@ -5,7 +5,7 @@ import notify from "./util/notify";
 import styles from "./styles/Profile.module.css";
 function determineProfileImage(userData) {
   if (!userData.profileImage) return "./emptyprofile.jpg";
-  return userData.profileImage;
+  return `http://localhost:8000/public/uploads/${userData.profileImage}`;
 }
 
 export default function Profile() {
@@ -33,12 +33,12 @@ export default function Profile() {
       notify("error occured while log  out");
     }
   }
-  function setProfileImage(e) {
+  async function setProfileImage(e) {
     const file = e.target.files[0]; // send blob to api
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const { data } = axios.post(
+      const { data } = await axios.post(
         "http://localhost:8000/user/uploadprofileimage",
         formData,
         {
@@ -48,11 +48,13 @@ export default function Profile() {
           },
         }
       );
-      console.log(data);
+      const user = data?.data;
+      if (user) setProfileImageSrc(determineProfileImage(user));
     } catch (err) {
       notify("error occured");
     }
   }
+
   return (
     <Fragment>
       <div className={styles.container}>

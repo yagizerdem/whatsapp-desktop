@@ -2,6 +2,7 @@ const Database = require("../lib/Database");
 const User = require("../models/User");
 const APIfeatures = require("../util/APIfeatures");
 const AppError = require("../util/AppError");
+const { v4: uuidv4 } = require("uuid");
 
 async function find(req, res) {
   // remove undefined values from object
@@ -36,11 +37,19 @@ async function getCurrentUser(req, res, next) {
   }
   return res.status(200).json({ ok: true, data: req.user });
 }
-async function uploadProfileImage(req, res, next) {
-  const file = req.body.file;
-  // upload file
-  if (!file) next(new AppError("No file uploaded", 404));
-
-  return res.send("upload profile image");
+async function uploadProfileImage(req, res) {
+  const userFromDb = req.user;
+  if (!userFromDb) throw new AppError("user is not autehnticated", 401);
+  userFromDb.profileImage = req.body.filename;
+  const db = new Database();
+  await db.open();
+  const newDocument = await db.findOneAndUpdate(
+    User,
+    { _id: userFromDb._id },
+    userFromDb
+  );
+  await db.close();
+  console.log("req body file name", req.body.filename);
+  return res.status(200).json({ ok: true, data: newDocument });
 }
 module.exports = { find, getCurrentUser, uploadProfileImage };

@@ -14,5 +14,10 @@ class Database {
   find = (model, query = {}) => {
     return model.find(query);
   };
+  findOneAndUpdate = (model, filter, update) => {
+    return model.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+  };
 }
 module.exports = Database;
