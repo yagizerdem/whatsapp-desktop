@@ -10,11 +10,14 @@ const Database = require("./lib/Database");
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const path = require("path");
 const corsOptions = {
   // Allow only requests from this domain
   origin: "http://localhost:5173",
   credentials: true, // Allow credentials
 };
+
+app.use("/public", express.static(path.join(__dirname, "public"))); // server static files
 
 app.use(cors(corsOptions));
 app.use(express.json());

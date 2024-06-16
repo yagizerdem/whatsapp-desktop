@@ -35,3 +35,17 @@
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   cursor: pointer;
 }
+.wrapper {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  margin: auto;
+}
+.wrapper svg {
+  width: 20px !important;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px 20px;
+  cursor: pointer;
+}

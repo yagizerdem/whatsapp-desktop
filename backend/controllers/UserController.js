@@ -36,4 +36,11 @@ async function getCurrentUser(req, res, next) {
   }
   return res.status(200).json({ ok: true, data: req.user });
 }
-module.exports = { find, getCurrentUser };
+async function uploadProfileImage(req, res, next) {
+  const file = req.body.file;
+  // upload file
+  if (!file) next(new AppError("No file uploaded", 404));
+
+  return res.send("upload profile image");
+}
+module.exports = { find, getCurrentUser, uploadProfileImage };
