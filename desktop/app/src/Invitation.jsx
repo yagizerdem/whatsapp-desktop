@@ -7,9 +7,25 @@ import styles from "./styles/invitation.module.css";
 export default function Invitation() {
   const invitations = useLoaderData();
   const [filter, setFilter] = useState([]);
-  function reject(invitationid) {
-    console.log(invitationid);
-    setFilter((prevFilter) => [...prevFilter, invitationid]);
+  async function reject(invitationid) {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8000/invite/reject",
+        {
+          invitationid: invitationid,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(data);
+      if (!data.ok) throw new Error();
+      setFilter((prevFilter) => [...prevFilter, invitationid]);
+      notify(data.message);
+    } catch (err) {
+      console.log(err);
+      notify("error occured");
+    }
   }
   return (
     <Fragment>

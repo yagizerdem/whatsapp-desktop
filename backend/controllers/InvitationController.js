@@ -42,5 +42,21 @@ async function find(req, res) {
 
   return res.status(200).json({ ok: true, data: results });
 }
+async function reject(req, res) {
+  const db = new Database();
+  await db.open();
+  const { invitationid } = req.body;
+  await db.findOneAndUpdate(
+    Invitation,
+    { _id: invitationid },
+    { status: "canceled" }
+  );
 
-module.exports = { find };
+  await db.close();
+
+  return res
+    .status(200)
+    .json({ ok: true, message: "invitation rejected ... " });
+}
+
+module.exports = { find, reject };
