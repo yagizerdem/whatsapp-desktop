@@ -1,6 +1,7 @@
 const Database = require("../lib/Database");
 const User = require("../models/User");
 const APIfeatures = require("../util/APIfeatures");
+const AppError = require("../util/AppError");
 
 async function find(req, res) {
   // remove undefined values from object
@@ -29,4 +30,10 @@ async function find(req, res) {
 
   return res.status(200).json({ ok: true, data: users });
 }
-module.exports = { find };
+async function getCurrentUser(req, res, next) {
+  if (!req.user) {
+    next(new AppError("user is not logged in", 401));
+  }
+  return res.status(200).json({ ok: true, data: req.user });
+}
+module.exports = { find, getCurrentUser };

@@ -1,0 +1,37 @@
+.profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  display: block;
+  margin: 20px auto;
+  cursor: pointer;
+}
+.container input {
+  display: block;
+  margin: 20px auto;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  background: white;
+  font-weight: bolder;
+  font-size: 18px;
+  text-align: center;
+}
+.container button {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  padding: 10px 20px;
+  border: none;
+  outline: None;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  cursor: pointer;
+}

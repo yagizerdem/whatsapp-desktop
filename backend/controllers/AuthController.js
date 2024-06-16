@@ -45,6 +45,7 @@ async function logOut(req, res, next) {
     if (err) {
       return next(err);
     }
+    res.clearCookie("connect.sid");
     res.status(200).json({ ok: true, message: "log out successfull" });
   });
 }

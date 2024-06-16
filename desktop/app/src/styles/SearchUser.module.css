@@ -16,3 +16,36 @@
   border: none;
   outline: none;
 }
+.userCardContainer {
+  width: 90%;
+  height: 400px;
+  background-color: white;
+  margin: auto;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card {
+  width: 200px;
+  height: 250px;
+  background-color: transparent;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  margin: 10px;
+}
+.profileimg {
+  width: 90px;
+  display: block;
+  margin: auto;
+}
+.profileimg ~ p {
+  text-align: center;
+  font-weight: bolder;
+}

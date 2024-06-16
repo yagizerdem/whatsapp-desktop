@@ -7,9 +7,11 @@ import AuthLayout from "./Layout/AuthLayout.jsx";
 import App from "./App.jsx";
 import { loader as appLayoutLoader } from "./Layout/AppLayout.jsx";
 import { loader as authLoader } from "./Layout/AuthLayout.jsx";
+import { loader as profileLoader } from "./Profile.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchUser from "./SearchUser.jsx";
+import Profile from "./Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/SearchUser",
         element: <SearchUser />,
+      },
+      {
+        path: "/Profile",
+        element: <Profile />,
+        loader: profileLoader,
       },
     ],
   },
