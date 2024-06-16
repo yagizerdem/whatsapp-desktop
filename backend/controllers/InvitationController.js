@@ -1,6 +1,7 @@
 const Invitation = require("../models/Invitation");
 const Database = require("../lib/Database");
 const mongoose = require("mongoose");
+const User = require("../models/User");
 
 async function find(req, res) {
   const db = new Database();
@@ -58,5 +59,30 @@ async function reject(req, res) {
     .status(200)
     .json({ ok: true, message: "invitation rejected ... " });
 }
+async function accept(req, res) {
+  const db = new Database();
+  await db.open();
+  const { invitationid } = req.body;
 
-module.exports = { find, reject };
+  const invitation = await db.findOne(Invitation, { _id: invitationid });
+  const userFromid = invitation.from;
+  const userToid = invitation.to;
+  const userFrom = await db.findOne(User, { _id: userFromid });
+  const userTo = await db.findOne(User, { _id: userToid });
+  userTo.friends.push(userFrom._id); // Add user2 as a friend of user1
+  userFrom.friends.push(userTo._id); // Add user1 as a friend of user2
+  await db.findOneAndUpdate(User, { _id: userFromid }, userFrom);
+  await db.findOneAndUpdate(User, { _id: userToid }, userTo);
+  await db.findOneAndUpdate(
+    Invitation,
+    { _id: invitationid },
+    { status: "approved" }
+  );
+
+  await db.close();
+  return res
+    .status(200)
+    .json({ ok: true, message: "invitation acceppted ... " });
+}
+
+module.exports = { find, reject, accept };
